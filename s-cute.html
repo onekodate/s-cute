@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>S-Cute Analyzer</title>
+        <link href="https://cdn.bootcss.com/noUiSlider/8.5.1/nouislider.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/noUiSlider/8.5.1/nouislider.js"></script>
+        <link rel=stylesheet href="s-cute.css">
+    </head>
+    <body>
+        <div class=body>
+            <button class=open href="#summary" onclick="return openclose(this);">Summary</button>
+            <div id=summary>
+                <p id=summary_sentence></p>
+                <p id=genre_checklist></p>
+                <p><canvas id=summary_pie></canvas></p>
+                <p><canvas id=summary_bar></canvas></p>
+                <label class=label onclick="button('Scatter');"><input type=radio name=plot_radio value=Scatter checked=checked>Scatter</label>
+                <label class=label onclick="button('Date');"><input type=radio name=plot_radio value=Date>Date Bar</label>
+                <label class=label onclick="button('Girl');"><input type=radio name=plot_radio value=Girl>Girl Bar</label>
+                <p><canvas id=date_plot></canvas></p>
+                <p id=date_button class=hidden>
+                    <label class=label onclick="button(7);"><input type=radio name=date_radio value=7>Month</label>
+                    <label class=label onclick="button(4);"><input type=radio name=date_radio value=4 checked=checked>Year</label>
+                </p>
+            </div>
+            <button class=open href="#search" onclick="return openclose(this);">Search</button>
+            <div id=search class=invisible>
+                <div class=search_box><input type=number id=num placeholder="Number" onChange="search(this);"></div>
+                <div class=search_box><input type=search id=girl placeholder="Girl" onChange="search(this);"></div>
+                <div class=search_box><input type=search id=title placeholder="Title" onChange="search(this);"></div>
+                <div class=search_box><input type=search id=date placeholder="YYYY/MM/DD" onChange="search(this);"></div>
+                <div class=search_box><input type=search id=genre placeholder="Genre" list=genre_list onChange="search(this);"><b id=genre_select></b></div>
+                <div class=search_box><input type=search id=site placeholder="Hotel" list=hotel_list onChange="search(this);"><b id=hotel_select></b></div>
+                <p id=request></p>
+                <div id=result></div>
+            </div>
+            <button class=open href="#quiz" onclick="return openclose(this);">Quiz</button>
+            <div id=quiz class=invisible>
+                <p>
+                    <b id=quiz_name>#828 Haruka S-Cute</b>
+                    <b id=quiz_answer>ザ・プリンスパークタワー東京</b>
+                </p>
+                <p id=quiz_title></p>
+                <p>
+                    <iframe id=quiz_iframe width=3200></iframe>
+                </p>
+                <button onclick="next_quiz();">Next</button>
+                <button id=storage onclick="clear_storage(false);">Reset Storage</button>
+                <div id=quiz_choices></div>
+            </div>
+            <button class=open href="#file_div" onclick="return openclose(this);">File</button>
+            <div id=file_div class=invisible>
+                <p class=w800>
+                    　このサイトはサーバーに置かれたjsonファイルからコンテンツを表示していますが、更新が滞る可能性が高いので、
+                    ユーザーがファイルを都度アップロードすることで手持ちのjsonファイルもしくはcsvファイルからコンテンツを表示させることが出来ます。
+                    以下のテンプレートに従って作成したものをアップロードしてください。文字コードはUTF-8。csvファイルをアップロードするとjson形式でダウンロードされます。<br>
+                    &lt; json &gt; <br>
+                    一つの要素が以下のような形式である配列。<br>
+                    {<br>
+                        "num":"830",                                            //女優通し番号<br>
+                        "girl":"karen",                                         //女優<br>
+                        "genre":"S-Cute",                                       //カテゴリ<br>
+                        "title":"剛毛制服娘のハレンチな性交／Karen",              //タイトル<br>
+                        "url":"http://www.s-cute.com/contents/830_karen_01/",   //サイトURL<br>
+                        "date":"2021/02/26",                                    //日付<br>
+                        "identified":true,                                      //撮影地が特定されてるか否か<br>
+                        "hotel":true,                                           //撮影地はホテルか否か<br>
+                        "site":"ウェスティンホテル東京",                         //撮影地<br>
+                    }<br><br>
+                    &lt; csv &gt; <br>
+                    以下のようなテーブル。行名、列名は不要。
+                </p>
+                    <table>
+                        <tr>
+                            <th>Number</th><th>Girl</th><th>Genre</th><th>Title</th><th>URL</th><th>Date</th><th>Site</th>
+                        </tr>
+                        <tr>
+                            <td>821</td><td>aoi</td><td>S-Cute</td><td>透明感ある美少女の中出しSEX／Aoi</td><td class=break>http://www.s-cute.com/contents/821_aoi_01/</td><td>2021/01/01</td><td class=break>ザ・プリンスパークタワー東京</td>
+                        </tr>
+                        <tr>
+                            <td></td><td></td><td>S-Cute</td><td>アイドル級の可愛さの美少女としっぽりSEX／Aoi</td><td class=break>http://www.s-cute.com/contents/821_aoi_02/</td><td>2021/02/03</td><td class=break>ザ・プリンスパークタワー東京</td>
+                        </tr>
+                        <tr>
+                            <td></td><td></td><td>with</td><td>無邪気な顔してＨな純朴娘の中出しハメ撮り／Aoi</td><td class=break>http://www.s-cute.com/contents/tat_072/</td><td>2021/02/16</td><td></td>
+                        </tr>
+                        <tr>
+                            <td>791</td><td>ichika</td><td>IF Short</td><td>もし小悪魔いちかと一日一緒に過ごせたら-AM6:30／Ichika</td><td class=break>http://www.s-cute.com/contents/if_016_01/</td><td>2020/11/21</td><td class=break>Apparently Not Hotel</td>
+                        </tr>
+                    </table>
+                <p class=w800>
+                    Number:女優通し番号、Girl:女優、Genre:カテゴリ、Title:タイトル、URL:サイトURL、Date:日付、Site:撮影地。<br>
+                    また明らかにホテルではない撮影地の場合Apparently Not Hotelを入れる。Siteを空白で残すと自動的にUnidentifiedに変換される。<br>
+                </p>
+                <div class=file_button id=wrap_file>
+                    <input class=file_button type=file id=file accept=".csv,.json" onChange="loadFile();">
+                    <div class=file_button id=btn_file>
+                        <span class=file_button>Choose File</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=range>
+            <div id="range_slider"></div>
+            <p>
+                <input class=txtbox type=text placeholder=YYYY-MM-DD id=range_since onChange='dateParser("summary");showSummary();'>
+                <span> -- </span>
+                <input class=txtbox type=text placeholder=YYYY-MM-DD id=range_until onChange='dateParser("summary");showSummary();'>
+                <span>  </span>
+                <button class=submit onclick="elem('range_slider').noUiSlider.set([0,100]);">Full</button><br>
+                <label class=label onclick="button('site');"><input type=radio name=range_radio value=Hotel checked=checked>Hotel</label>
+                <label class=label onclick="button('genre');"><input type=radio name=range_radio value=Genre>Genre</label>
+            </p>
+        </div>
+    </body>
+    <a id=downloadLink></a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    <script src="s-cute.js"></script>
+</html>
