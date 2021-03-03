@@ -462,7 +462,7 @@ function next_quiz(){
         elem("quiz_name").innerText="#"+val.num+" "+val.girl+" "+val.genre;
         elem("quiz_answer").innerText="";
         elem("quiz_title").innerHTML="<a target='_blank' href='"+val.url+"'>"+val.title+"</a>";
-        elem("quiz_iframe").setAttribute("src",val.url);
+        elem("quiz_iframe").setAttribute("src",val.url.slice(5,));
     }
 }
 function openclose(btn){
