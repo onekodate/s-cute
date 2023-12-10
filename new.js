@@ -13,7 +13,7 @@ class Display_Data {
     json_range      = ["1900/01/01", "2100/12/31"];
     constructor (filename) {
         fetch(filename).then(file => file.text()).then(textdata => {
-            this.data = textdata.split("\r\n").map(row=>{
+            this.data = textdata.split("\n").map(row=>{
                 v = row.split(",");
                 return {
                     num: Number(v[0]),
