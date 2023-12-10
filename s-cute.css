@@ -1,0 +1,257 @@
+html{
+    width:100%;
+    height:100%;
+}
+body{
+    text-align:center;
+    width:100%;
+    height:100%;
+    margin-top:0;
+    margin-left:0;
+    position: relative;
+}
+.body {
+    font-family:'Script';
+    color:#000;
+    width:90%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.il-block{
+    display:inline-block;
+}
+/* Button */
+input[type=radio]{
+    display:none;
+}
+input[type=search]{
+    width:145px;
+    height:50px;
+    border-radius: 0;
+    font-size: 20px;
+}
+input[type=number],input[type=text]{
+    width:125px;
+    height:44px;
+    border-radius:0;
+    font-size: 20px;
+}
+
+button{
+    vertical-align: middle;
+    margin-right:10px;
+    margin-bottom:10px;
+    border-radius: 10px;
+}
+.open{
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#1e2022;
+    color:#fff;
+    border:none;
+    border-radius:0px;
+    padding-top:6px;
+    padding-bottom:6px;
+    margin-top:10px;
+    height:50px;
+}
+.label{
+    display:inline-block;
+    width:200px;
+    height:30px;
+    background-color:#2ec5f0;
+    color:#fff;
+    vertical-align: middle;
+    padding-top:25px;
+    padding-bottom:25px;
+    border:none;
+    font-size:20px;
+    border-radius: 10px;
+    margin-right:10px;
+}
+button.label{
+    width:200px;
+    height:80px;
+}
+
+/* Search */
+.search_box{
+    display:inline-block;
+}
+table{
+    table-layout:fixed;
+    display:inline-block;
+    font-weight:normal;
+    margin-left:auto;
+    margin-right:auto;
+}
+td,th{
+    text-align:center;
+    padding:0px 5px;
+    font-weight:normal;
+}
+.break{
+    text-align:left;
+    word-break:break-word;
+}
+
+/* Quiz */
+#w600{
+    width:610px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#quiz_name{
+    float:left;
+}
+#quiz_answer{
+    float:right;
+}
+#quiz_title{
+    font-size: 20px;
+    font-weight: bolder;
+    color:blue;
+    float:left;
+}
+#quiz_counter{
+    float:right;
+}
+#quiz_iframe{
+    width:800px;
+    height:600px;
+    float:left;
+}
+#quiz_next{
+    height:600px;
+    float:right;
+    width:100px;
+    margin-left:0;
+    margin-right:0;
+    margin-bottom: 0;
+}
+.choices{
+    background-color: #fff;
+    color:#000;
+    width:100px;
+    height:100px;
+}
+#storage{
+    background-color: #9baec8;
+}
+#w1000{
+    width:905px;
+    height:605px;
+    margin-left:auto;
+    margin-right:auto;
+}
+/* File */
+.w800{
+    text-align: left;
+    width:800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.file_button{
+    width:300px;
+    height:50px;
+}
+#wrap_file{
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+}
+#file{
+    display:inline-block;
+    position:absolute;
+    opacity: 0;
+    z-index:10;
+    top:0;
+    left:0;
+}
+#btn_file{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:0;
+    border-radius: 10px;
+    border:solid 5px #2b90d9;
+}
+#btn_file span{
+    display:inline-block;
+    z-index:5;
+    padding-top: 12px;
+    text-align: center;
+    color:#2b90d9;
+    font-weight: bolder;
+    font-size: 20px;
+}
+/* Range */
+.range{
+    position:sticky;
+    top:0;
+    background-color: #000;
+    vertical-align: middle;
+    opacity:80%;
+    z-index: 10;
+}
+#range_div{
+    padding-top:10px;
+}
+#range_slider{
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+}
+#range_button{
+    height:20px;
+    margin-bottom:0;
+    margin-top:0;
+}
+.noUi-handle{
+    background:#2b90d9;
+    border-radius:3px;
+    box-shadow:none;
+}
+.noUi-horizontal .noUi-handle {
+    width: 15px;
+    height: 22px;
+    left: -9px;
+    top: -3px;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 10px;
+    width: 0px;
+    left: 3px;
+    top: 3px;
+}
+.noUi-handle:after {
+    left: 9px;
+}
+
+/* Style */
+.invisible {
+    display: none;
+}
+.hidden{
+    visibility:hidden;
+}
+.font_green{
+    color:green;
+}
+.font_red{
+    color:red;
+}
+.back_red{
+    background-color:#ff7f7f;
+}
+.back_green{
+    background-color:#c2ddb6;
+}
+.back_blue{
+    background-color:#9fc4e7;
+}
