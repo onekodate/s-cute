@@ -623,8 +623,50 @@ function deleteSample() {
 }
 const openFile=()=>{
     return new Promise((resolve,reject)=>{
-        fetch("./s-cute.json").then((response)=>response.json()).then((jsonData)=>{
-            jsonarr=jsonData;
+        fetch("./s-cute.csv").then((response)=>response.text()).then((csvData)=>{
+            jsonarr=[];
+            let num=0,girl="aaa";
+            const arr=csvData.split("\n");
+            arr.forEach((valstr)=>{
+                if(valstr.length>0){
+                    const valarr=valstr.split(",");
+                    const identify=(site)=>{
+                        if(["Unidentified","Apparently Not Hotel",""].includes(site)) return false;
+                        else return true;
+                    }
+                    /*
+                    const short=(genre)=>{
+                        if(genre.includes("Short")) return true;
+                        else return false;
+                    }
+                    */
+                    const site=(site)=>{
+                        if(site==="") return "Unidentified";
+                        else return site;
+                    }
+                    const hotel=(site)=>{
+                        if(["Apparently Not Hotel","グランアクス代々木上原","ラトゥール新宿？"].includes(site)) return false;
+                        else return true;
+                    }
+                    if(valarr[0]!==""){
+                        num=valarr[0];
+                        girl=valarr[1];
+                    }
+                    jsonarr.push({
+                        num:String(Number(num)),
+                        girl:girl,
+                        genre:valarr[2],
+                        //short:short(valarr[2]),
+                        title:valarr[3],
+                        url:valarr[4],
+                        date:valarr[5],
+                        identified:identify(valarr[6]),
+                        hotel:hotel(valarr[6]),
+                        site:site(valarr[6]),
+                        //room:valarr[7],
+                    });
+                }
+            });
             resolve();
         }).catch(()=>reject());
     });

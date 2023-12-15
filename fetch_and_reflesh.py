@@ -114,6 +114,8 @@ class Fetch_and_Write:
                 break_count = 0
 
     def save(self) -> None:
+        for x in self.data:
+            x[5] = self.date2date(x[5])
         self.data.sort(
             key=lambda x: datetime.datetime.strptime(x[5], "%Y/%m/%d"),
             reverse=True,
@@ -141,7 +143,7 @@ class Fetch_and_Write:
     def execute(self) -> None:
         if self.filename == "s-cute":
             self.fetch_s_cute()
-        elif self.filname == "mgstage":
+        elif self.filename == "mgstage":
             self.fetch_mgstage()
         self.save()
         self.open_in_browser()
