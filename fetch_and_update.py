@@ -75,11 +75,30 @@ class Fetch_and_Write:
                     break
             if break_count > 5:
                 break
+        self.save()
 
     def fetch_mgstage(self) -> None:
-        for target in ["300MIUM", "348NTR", "390JAC", "390JNT", "451HHH", "483SGK"]:
+        for target in [
+            # "300MIUM",
+            # "348NTR",
+            # "390JAC",
+            # "390JNT",
+            # "451HHH",
+            # "483SGK",
+            # "380SQB",
+            # "200GANA",
+            "300MAAN",
+            "420ERK",
+            "435MFCS",
+            "435MFCS",
+            "428SUKE",
+            "435MFCW",
+            "435MFC",
+            "SIRO",
+            "RCON",
+        ]:
             break_count: int = 0
-            for i in range(1000):
+            for i in range(1, 10000):
                 num: str = str(i)
                 url: str = f"https://www.mgstage.com/product/product_detail/{target}-{num.zfill(3)}/"
                 if url in self.urls:
@@ -88,30 +107,37 @@ class Fetch_and_Write:
                 if div.find("h1", class_="tag") is None:
                     print(f"NOT FOUND {url}")
                     break_count += 1
-                    if break_count > 5:
+                    if break_count > 5 and target[0:3].isdecimal():
+                        target = target[3:]
+                        break_count = 0
+                    elif break_count > 5:
                         break
-                    else:
-                        continue
+                    continue
                 else:
                     break_count = 0
                 title: str = div.find("h1", class_="tag").text.strip()
-                table: list[BeautifulSoup] = div.find(
-                    "div", class_="detail_data"
-                ).find_all_next(
-                    "table",
-                )[1].find_all(
-                    "td"
-                )
-
-                girl: str = table[0].text.strip()
-                date: str = table[4].text
-                genre: str = table[6].text.strip()
+                girl: str = ""
+                date: str = ""
+                genre: str = ""
+                for table in div.find("div", class_="detail_data").find_all_next("table"):
+                    for tr in table.find_all("tr"):
+                        if tr.th is None:
+                            continue
+                        elif "出演" in tr.th.text:
+                            girl = tr.td.text.strip()
+                        elif "配信開始日" in tr.th.text:
+                            date = tr.td.text.strip()
+                        elif "レーベル" in tr.th.text:
+                            genre = tr.td.text.strip()
                 #                 0   1   2      3     4   5    6
                 #                 925 Mei S-cute Title URL Date 場所
                 row: list[str] = [num, girl, genre, title, url, date, ""]
                 self.data.append(row)
                 print(f'APPEND {",".join(row)}')
                 break_count = 0
+                if i % 100 == 0:
+                    self.save()
+            self.save()
 
     def save(self) -> None:
         for x in self.data:
@@ -145,10 +171,12 @@ class Fetch_and_Write:
             self.fetch_s_cute()
         elif self.filename == "mgstage":
             self.fetch_mgstage()
-        self.save()
         self.open_in_browser()
 
 
 if __name__ == "__main__":
-    for filename in ["s-cute", "mgstage"]:
+    for filename in [
+        # "s-cute",
+        "mgstage",
+    ]:
         Fetch_and_Write(filename).execute()

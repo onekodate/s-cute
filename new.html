@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>S-Cute</title>
+    </head>
+    <body>
+        <div id="search">
+            <p id="request"></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="number" id="#" placeholder="#" onchange="engine.search(this);"></th>
+                        <th><input type="search" id="Girl" placeholder="Girl" onchange="engine.search(this);"></th>
+                        <th><input type="search" id="Date" placeholder="Date" onchange="engine.search(this);"></th>
+                        <th><input type="search" id="Genre" placeholder="Genre" onchange="engine.search(this);" list="genre_list"></th>
+                        <th><input type="search" id="Title" placeholder="Title" onchange="engine.search(this);"></th>
+                        <th><input type="search" id="URL" placeholder="URL" onchange="engine.search(this);"></th>
+                        <th><input type="search" id="Hotel" placeholder="Hotel" onchange="engine.search(this);" list="hotel_list"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+        <div id="web">
+            <p>
+                <button onclick="engine.move(-1);"><</button>
+                <input id=answer type="search" list="hotel_list" onchange="this.answer(this.value);">
+                <button onclick="engine.move(1);">></button>
+                <button onclick="engine.download();">Download</button>
+            </p>
+            <iframe name="iframe" id="iframe"></iframe>
+        </div>
+        <div id="plot"></div>
+        <datalist id="genre_list"></datalist>
+        <datalist id="hotel_list"></datalist>
+        <a id="download_link"></a>
+    </body>
+</html>
