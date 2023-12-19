@@ -9,13 +9,14 @@ import webbrowser
 class Fetch_and_Write:
     filename: str
     data: list[list[str]]
-    urls: list[str]
 
     def __init__(self, filename: str) -> None:
         self.filename = filename
         with open(f"{self.filename}.csv", "r", encoding="utf_8_sig") as fp:
             self.data = [row for row in csv.reader((fp))]
-        self.urls = [row[4] for row in self.data]
+
+    def urls(self) -> list[str]:
+        return [row[4] for row in self.data]
 
     def cookie(self) -> str:
         return (
@@ -65,7 +66,7 @@ class Fetch_and_Write:
                 # 0   1   2      3     4   5    6
                 # 925 Mei S-cute Title URL Date 場所
                 row: list[str] = [num, girl, genre, title, url, date, ""]
-                if url in self.urls:
+                if url in self.urls():
                     print(f'SKIP   {" ".join(row)}')
                     break_count += 1
                 else:
@@ -90,7 +91,6 @@ class Fetch_and_Write:
             "300MAAN",
             "420ERK",
             "435MFCS",
-            "435MFCS",
             "428SUKE",
             "435MFCW",
             "435MFC",
@@ -101,7 +101,7 @@ class Fetch_and_Write:
             for i in range(1, 10000):
                 num: str = str(i)
                 url: str = f"https://www.mgstage.com/product/product_detail/{target}-{num.zfill(3)}/"
-                if url in self.urls:
+                if url in self.urls():
                     continue
                 div: BeautifulSoup = self.wait_and_fetch(url)
                 if div.find("h1", class_="tag") is None:
