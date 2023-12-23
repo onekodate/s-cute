@@ -80,14 +80,14 @@ class Fetch_and_Write:
 
     def fetch_mgstage(self) -> None:
         for target in [
-            # "300MIUM",
-            # "348NTR",
-            # "390JAC",
-            # "390JNT",
-            # "451HHH",
-            # "483SGK",
-            # "380SQB",
-            # "200GANA",
+            "300MIUM",
+            "348NTR",
+            "390JAC",
+            "390JNT",
+            "451HHH",
+            "483SGK",
+            "380SQB",
+            "200GANA",
             "300MAAN",
             "420ERK",
             "435MFCS",
@@ -98,7 +98,8 @@ class Fetch_and_Write:
             "RCON",
         ]:
             break_count: int = 0
-            for i in range(1, 10000):
+            exmax: int = max([int(url.split("-")[-1]) for url in self.urls()])
+            for i in range(exmax, 10000):
                 num: str = str(i)
                 url: str = f"https://www.mgstage.com/product/product_detail/{target}-{num.zfill(3)}/"
                 if url in self.urls():
@@ -161,9 +162,10 @@ class Fetch_and_Write:
             if row[6] == "":
                 time.sleep(5)
                 webbrowser.get("firefox").open_new_tab(row[4])
+                break_count = 0
             else:
                 break_count += 1
-            if break_count > 30:
+            if break_count > 10:
                 break
 
     def execute(self) -> None:
@@ -176,7 +178,7 @@ class Fetch_and_Write:
 
 if __name__ == "__main__":
     for filename in [
-        # "s-cute",
+        "s-cute",
         "mgstage",
     ]:
         Fetch_and_Write(filename).execute()
