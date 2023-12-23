@@ -98,7 +98,7 @@ class Fetch_and_Write:
             "RCON",
         ]:
             break_count: int = 0
-            exmax: int = max([int(url.split("-")[-1]) for url in self.urls()])
+            exmax: int = max([int(url.split("-")[-1][:-1]) for url in self.urls()])
             for i in range(exmax, 10000):
                 num: str = str(i)
                 url: str = f"https://www.mgstage.com/product/product_detail/{target}-{num.zfill(3)}/"
@@ -178,7 +178,7 @@ class Fetch_and_Write:
 
 if __name__ == "__main__":
     for filename in [
-        "s-cute",
+        # "s-cute",
         "mgstage",
     ]:
         Fetch_and_Write(filename).execute()
