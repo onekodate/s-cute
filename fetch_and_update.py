@@ -178,7 +178,7 @@ class Fetch_and_Write:
 
 if __name__ == "__main__":
     for filename in [
-        # "s-cute",
+        "s-cute",
         "mgstage",
     ]:
         Fetch_and_Write(filename).execute()
